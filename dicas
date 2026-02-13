@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uma Pequena Descoberta</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:100vh;
+background:
+linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)),
+url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Segoe UI,Arial;
+overflow:hidden;
+padding:20px;
+}
+
+.card{
+background:rgba(255,255,255,.85);
+backdrop-filter:blur(12px);
+padding:28px;
+border-radius:22px;
+text-align:center;
+box-shadow:0 10px 35px rgba(0,0,0,.1);
+width:100%;
+max-width:380px;
+z-index:2;
+}
+
+h1{
+color:#6b5b5b;
+font-size:clamp(20px,5vw,28px);
+margin-bottom:10px;
+}
+
+p{
+color:#7a6f6f;
+font-size:clamp(13px,3.5vw,15px);
+line-height:1.4;
+}
+
+button{
+width:100%;
+border:none;
+padding:14px;
+margin-top:12px;
+border-radius:14px;
+font-size:clamp(14px,3.5vw,16px);
+cursor:pointer;
+transition:.3s;
+}
+
+.b1{background:linear-gradient(45deg,#ff9a9e,#fad0c4);color:white}
+.b3{background:transparent;border:2px solid #f3a6a6;color:#d27b7b}
+
+button:active{transform:scale(.97)}
+
+.link-text{
+margin-top:12px;
+font-size:16px;
+font-weight:600;
+color:#a06cd5;
+cursor:pointer;
+}
+
+.link-text:active{
+transform:scale(.97);
+}
+
+.heart{
+position:absolute;
+font-size:clamp(18px,5vw,26px);
+animation:subir linear infinite;
+}
+
+@keyframes subir{
+0%{transform:translateY(110vh);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(-10vh);opacity:0}
+}
+
+.msg{
+margin-top:15px;
+font-size:14px;
+color:#6b5b5b;
+font-weight:500;
+min-height:24px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h1>Gostou do presente? 😍</h1>
+<p>Talvez isso seja só o começo de uma pequena descoberta...</p>
+
+<button class="b1" onclick="resposta1()">Sim, gostei ❤️</button>
+
+<div class="link-text" onclick="resposta2()">
+Quero saber quem sou? 👇🏾
+</div>
+
+<button class="b3" onclick="resposta3()">Quero mais pistas</button>
+
+<div class="msg" id="msg"></div>
+</div>
+
+<!-- Corações -->
+<div class="heart" style="left:10%;animation-duration:7s">💖</div>
+<div class="heart" style="left:25%;animation-duration:6s;animation-delay:2s">💗</div>
+<div class="heart" style="left:40%;animation-duration:8s;animation-delay:4s">💓</div>
+<div class="heart" style="left:60%;animation-duration:7s;animation-delay:1s">💕</div>
+<div class="heart" style="left:80%;animation-duration:6s;animation-delay:3s">💘</div>
+
+<script>
+
+let nivel = 0;
+
+function resposta1(){
+document.getElementById("msg").innerText =
+"Fico feliz que tenha gostado... isso já diz muito sobre você 💖";
+}
+
+function resposta2(){
+if(nivel === 0){
+document.getElementById("msg").innerText =
+"Talvez alguém que já cruzou seu caminho... 😉";
+nivel = 1;
+}else{
+document.getElementById("msg").innerText =
+"Alguém que te observou em silêncio por um tempo...";
+}
+}
+
+function resposta3(){
+
+if(nivel === 0){
+document.getElementById("msg").innerText =
+"Pista 1: Nós já trabalhamos no mesmo lugar. o - i*o";
+nivel = 1;
+}
+
+else if(nivel === 1){
+document.getElementById("msg").innerText =
+"Pista 2: Mas eu te conheço desde o ensino médio.";
+nivel = 2;
+}
+
+else if(nivel === 2){
+document.getElementById("msg").innerText =
+"Pista 3: Só que você não sabia que nós  morávamos no mesmo bairro.";
+nivel = 3;
+}
+
+else if(nivel === 3){
+document.getElementById("msg").innerText =
+"Pista 4: Nós nos encontramos na mecânica de moto.";
+nivel = 4;
+}
+
+else if(nivel === 4){
+document.getElementById("msg").innerText =
+"Pista 5: Te vejo quase todo sábado pela manhã, de moto ou de carro.";
+nivel = 5;
+}
+
+else{
+document.getElementById("msg").innerText =
+"Pista 6: Quando dava a hora de ir embora eu apostava corrida com você de moto toda vez, e adivinha o placar kkk foi 3x2 pra você. Perdi todas as vezes no mesmo local... Abaeté.";
+}
+
+}
+
+</script>
+
+</body>
+</html>
