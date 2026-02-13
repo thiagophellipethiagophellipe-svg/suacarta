@@ -6,89 +6,69 @@
 <title>Carta Especial</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
 body{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
-    background: linear-gradient(135deg,#f7d9e3,#f5e6cc);
-    font-family: Georgia, serif;
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#f1d1d1,#e6d5c3);
+font-family:Georgia, serif;
 }
 
-/* Polaroid */
-.polaroid{
-    background:white;
-    padding:20px 20px 60px;
-    width:100%;
-    max-width:350px;
-    box-shadow:0 15px 30px rgba(0,0,0,0.25);
-    transform: rotate(-2deg);
-    border-radius:6px;
+.card{
+background:#fdfdfd;
+padding:40px;
+border-radius:12px;
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+text-align:center;
+transform:rotate(-2deg);
+max-width:320px;
 }
 
-/* Conteúdo */
-.carta{
-    text-align:center;
-    color:#5a3b3b;
+h1{
+font-size:26px;
+margin:10px 0;
 }
 
-/* Título */
-.carta h1{
-    font-size:24px;
-    margin-bottom:15px;
+p{
+font-size:18px;
+margin:8px 0;
 }
 
-/* Texto */
-.carta p{
-    font-size:16px;
-    line-height:1.6;
+button{
+margin-top:20px;
+padding:14px 30px;
+border:none;
+border-radius:25px;
+background:#d67b86;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
 }
 
-/* Botão */
-.botao{
-    display:inline-block;
-    margin-top:20px;
-    padding:14px 25px;
-    background:#c97b8b;
-    color:white;
-    text-decoration:none;
-    border-radius:30px;
-    font-size:16px;
-}
-
-/* Mobile extra */
-@media (max-width:400px){
-    .botao{
-        width:100%;
-    }
+button:hover{
+background:#c25f6b;
+transform:scale(1.05);
 }
 </style>
-
 </head>
+
 <body>
 
-<div class="polaroid">
-    <div class="carta">
-        
+<div class="card">
 
-        <p>
-        ✨ Uma pequena surpresa para
-        <br><br>
+<p>✨ Uma pequena surpresa para você…</p>
+
 <h1>Você 💌❤️</h1>
-        ❤️ Abra… é especial.📩
-        </p>
 
-        <a class="botao" href="https://google.com" target="_blank">
-            Clique aqui 💌
-        </a>
-    </div>
+<p>❤️ Abra… é especial. 📩</p>
+
+<a href="segunda.html">
+<button>Clique aqui 💌</button>
+</a>
+
 </div>
 
 </body>
