@@ -112,12 +112,11 @@ padding:12px 18px;
 box-shadow:0 4px 20px rgba(0,0,0,.15);
 cursor:pointer;
 text-align:center;
-display:flex;            
-align-items:center;      
+display:none; /* Começa escondido */
+align-items:center;       
 justify-content:center;  
 transition:height 0.3s ease;
 min-height:50px;         
-display:none; 
 }
 
 /* Texto dentro do box */
@@ -128,13 +127,18 @@ color:#333;
 display:inline-block;
 }
 
-/* Seta piscando fixa no canto inferior direito */
+/* Seta piscando */
 .seta{
 position:absolute;
 bottom:8px;
 right:12px;
 font-size:16px;
 animation:piscando 1s infinite;
+}
+
+@keyframes piscando {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Botão de dicas inicialmente escondido */
@@ -155,7 +159,6 @@ margin-top:10px;
 
 <body>
 
-<!-- CORAÇÕES -->
 <div class="coracoes">
 <div class="heart" style="left:8%; animation-duration:7s;">💖</div>
 <div class="heart" style="left:20%; animation-duration:6s; animation-delay:1s;">💗</div>
@@ -166,19 +169,14 @@ margin-top:10px;
 <div class="heart" style="left:88%; animation-duration:7s; animation-delay:1s;">❤️</div>
 </div>
 
-<!-- TELA -->
 <div class="tela">
 
 <div class="personagem">
-
 <div class="trilha-texto">Ouça!</div>
-
 <button class="play-btn" id="playBtn">▶ PLAY</button>
-
 <audio id="musica">
-  <source src="mp3/musica.mp3" type="audio/mpeg">
+  <source src="musica.mp3" type="audio/mpeg">
 </audio>
-
 </div>
 
 <div class="dialogo" id="dialogo">
@@ -186,13 +184,11 @@ margin-top:10px;
 <div class="seta">▼</div>
 </div>
 
-<!-- Botão para página de dicas -->
-<button id="dicasBtn" onclick="window.location.href='https://thiagophellipe.github.io/cartinha/dicas.html'">Ir para as dicas</button>
+<button id="dicasBtn" onclick="window.location.href='segunda.html'">Ir para as dicas</button>
 
 </div>
 
 <script>
-// Texto atualizado
 const linhas = [
 "Ainda sei bem pouco sobre você…",
 "Mas o pouco que sei me deixou curioso e encantado.",
@@ -200,7 +196,7 @@ const linhas = [
 "Pequenos gestos, sorrisos e jeitos que fazem tudo parecer mágico.",
 "Você não precisa de grandes gestos; são as pequenas atitudes que provocam seu sorriso sincero.",
 "É incrível como sua presença transforma o ambiente.",
-"Quer descobrir quem te enviou essas flores?" // linha teaser antes do botão
+"Quer descobrir quem te enviou essas flores?"
 ];
 
 let indexLinha = 0;
@@ -212,7 +208,6 @@ const musica = document.getElementById("musica");
 const playBtn = document.getElementById("playBtn");
 const dicasBtn = document.getElementById("dicasBtn");
 
-// Função de digitação letra por letra
 function digitarLinha(linha) {
     digitando = true;
     textoEl.innerHTML = ""; 
@@ -223,7 +218,7 @@ function digitarLinha(linha) {
         if (i >= linha.length) {
             clearInterval(intervalo);
             digitando = false;
-            // Se for a última linha (teaser), mostrar o botão
+            // Se for a última linha, mostrar o botão de dicas
             if(indexLinha >= linhas.length){
                 dicasBtn.style.display = "inline-block";
             }
@@ -231,7 +226,7 @@ function digitarLinha(linha) {
     }, 50);
 }
 
-// Clique para próxima linha
+// Clique no balão para passar o texto
 dialogoEl.addEventListener("click", () => {
     if (digitando) return;
     if (indexLinha < linhas.length) {
@@ -240,11 +235,17 @@ dialogoEl.addEventListener("click", () => {
     }
 });
 
-// PLAY / PAUSE da música
+// CORREÇÃO: Função de Play atualizada para iniciar o diálogo
 function tocarMusica(){
   if(musica.paused){
     musica.play();
     playBtn.innerText = "⏸ PAUSE";
+    
+    // Mostra o quadro de texto se ele estiver escondido
+    if(dialogoEl.style.display !== "flex"){
+       dialogoEl.style.display = "flex";
+       textoEl.innerHTML = "Clique aqui para começar...";
+    }
   } else {
     musica.pause();
     playBtn.innerText = "▶ PLAY";
@@ -252,17 +253,6 @@ function tocarMusica(){
 }
 
 playBtn.addEventListener("click", tocarMusica);
-
-// Evento quando a música termina
-musica.addEventListener("ended", () => {
-    dialogoEl.style.display = "flex"; // mostra o box
-    textoEl.innerHTML = "Clique para começar...";
-
-    // Música continua baixinho em loop como fundo ambiente
-    musica.volume = 0.1; // volume baixo
-    musica.loop = true;
-    musica.play();
-});
 </script>
 
 </body>
