@@ -13,7 +13,7 @@
 /* ===== FUNDO ===== */
 body{
 min-height: 100vh;
-min-height: -webkit-fill-available; /* Ajuste para navegadores mobile */
+min-height: -webkit-fill-available; 
 background:
 linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)),
 url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e");
@@ -22,7 +22,7 @@ background-position:center;
 background-repeat:no-repeat;
 display:flex;
 justify-content:center;
-align-items:center;
+align-items:flex-end;
 font-family:'Press Start 2P', monospace;
 overflow:hidden;
 }
@@ -51,7 +51,7 @@ animation:subir linear infinite;
 100%{transform:translateY(-120vh) scale(1.2);opacity:0;}
 }
 
-/* ===== TELA PRINCIPAL (Centralização Total) ===== */
+/* ===== TELA PRINCIPAL ===== */
 .tela{
 position:relative;
 width:90%;
@@ -111,16 +111,17 @@ border-radius:22px;
 padding:20px 15px;
 box-shadow:0 4px 20px rgba(0,0,0,.15);
 cursor:pointer;
-display:none; /* Escondido até a música acabar */
+display:none; /* só aparece após a música acabar */
 align-items:center;       
 justify-content:center;  
-min-height:80px;         
+min-height:50px;         
 }
 
 .texto{
 font-size:11px;
 line-height:1.7;
 color:#333;
+text-align:center;
 }
 
 .seta{
@@ -145,10 +146,11 @@ margin-top:15px;
 @media(max-width:480px){
   body {
     padding: 20px;
+    justify-content: center; /* centraliza verticalmente */
   }
   .tela {
-    height: 100%; /* Garante que ocupa a altura centralizada */
-    gap: 40px;
+    height: 100%; 
+    gap: 30px;
   }
   .trilha-texto{font-size:11px;}
   .play-btn, #dicasBtn{font-size:11px; width: 80%;}
@@ -206,6 +208,7 @@ const musica = document.getElementById("musica");
 const playBtn = document.getElementById("playBtn");
 const dicasBtn = document.getElementById("dicasBtn");
 
+// Função para digitar o texto linha por linha
 function digitarLinha(linha) {
     digitando = true;
     textoEl.innerHTML = ""; 
@@ -223,6 +226,7 @@ function digitarLinha(linha) {
     }, 50);
 }
 
+// Clique no balão de texto
 dialogoEl.addEventListener("click", () => {
     if (digitando) return;
     if (indexLinha < linhas.length) {
@@ -231,6 +235,7 @@ dialogoEl.addEventListener("click", () => {
     }
 });
 
+// Tocar / pausar música
 function tocarMusica(){
   if(musica.paused){
     musica.play();
@@ -243,17 +248,17 @@ function tocarMusica(){
 
 playBtn.addEventListener("click", tocarMusica);
 
-// LOGICA VOLTADA: Quando a música termina
+// Quando a música termina
 musica.addEventListener("ended", () => {
-    // 1. Mostra o balão de texto
+    // Mostrar o balão de texto
     dialogoEl.style.display = "flex"; 
     textoEl.innerHTML = "Clique para ler a mensagem...";
 
-    // 2. Muda para loop de fundo ambiente
-    musica.volume = 0.15; // Volume baixo
+    // Mudar música para fundo ambiente em loop
+    musica.volume = 0.15; 
     musica.loop = true;
     musica.play();
-    playBtn.style.display = "none"; // Esconde o botão Play após terminar
+    playBtn.style.display = "none"; // Esconde botão Play
     document.querySelector('.trilha-texto').innerText = "Tocando ao fundo...";
 });
 </script>
