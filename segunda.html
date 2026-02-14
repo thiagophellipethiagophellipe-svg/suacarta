@@ -22,7 +22,7 @@ background-position:center;
 background-repeat:no-repeat;
 display:flex;
 justify-content:center;
-align-items:flex-end;
+align-items:center;
 font-family:'Press Start 2P', monospace;
 overflow:hidden;
 }
@@ -51,7 +51,7 @@ animation:subir linear infinite;
 100%{transform:translateY(-120vh) scale(1.2);opacity:0;}
 }
 
-/* ===== TELA PRINCIPAL ===== */
+/* ===== TELA PRINCIPAL (Centralização Total) ===== */
 .tela{
 position:relative;
 width:90%;
@@ -111,10 +111,10 @@ border-radius:22px;
 padding:20px 15px;
 box-shadow:0 4px 20px rgba(0,0,0,.15);
 cursor:pointer;
-display:none; /* só aparece após a música acabar */
+display:none; /* Escondido até a música acabar */
 align-items:center;       
 justify-content:center;  
-min-height:50px;         
+min-height:80px;         
 }
 
 .texto{
@@ -144,14 +144,8 @@ margin-top:15px;
 
 /* ===== MOBILE ADJUSTMENTS ===== */
 @media(max-width:480px){
-  body {
-    padding: 20px;
-    justify-content: center; /* centraliza verticalmente */
-  }
-  .tela {
-    height: 100%; 
-    gap: 30px;
-  }
+  body { padding: 20px; }
+  .tela { height: 100%; gap: 40px; }
   .trilha-texto{font-size:11px;}
   .play-btn, #dicasBtn{font-size:11px; width: 80%;}
   .texto{font-size:10px;}
@@ -173,7 +167,7 @@ margin-top:15px;
 
 <div class="tela">
     <div class="personagem">
-        <div class="trilha-texto">Ouça a música até o fim...</div>
+        <div class="trilha-texto" id="statusTrilha">Ouça a música até o fim...</div>
         <button class="play-btn" id="playBtn">▶ PLAY</button>
         <audio id="musica">
             <source src="musica.mp3" type="audio/mpeg">
@@ -207,8 +201,9 @@ const dialogoEl = document.getElementById("dialogo");
 const musica = document.getElementById("musica");
 const playBtn = document.getElementById("playBtn");
 const dicasBtn = document.getElementById("dicasBtn");
+const statusTrilha = document.getElementById("statusTrilha");
 
-// Função para digitar o texto linha por linha
+// Função de digitação letra por letra
 function digitarLinha(linha) {
     digitando = true;
     textoEl.innerHTML = ""; 
@@ -219,6 +214,7 @@ function digitarLinha(linha) {
         if (i >= linha.length) {
             clearInterval(intervalo);
             digitando = false;
+            // Exibe botão dicas ao final do último texto
             if(indexLinha >= linhas.length){
                 dicasBtn.style.display = "inline-block";
             }
@@ -226,7 +222,7 @@ function digitarLinha(linha) {
     }, 50);
 }
 
-// Clique no balão de texto
+// Clique no balão para mostrar próxima linha
 dialogoEl.addEventListener("click", () => {
     if (digitando) return;
     if (indexLinha < linhas.length) {
@@ -235,7 +231,7 @@ dialogoEl.addEventListener("click", () => {
     }
 });
 
-// Tocar / pausar música
+// Função Play/Pause
 function tocarMusica(){
   if(musica.paused){
     musica.play();
@@ -248,18 +244,17 @@ function tocarMusica(){
 
 playBtn.addEventListener("click", tocarMusica);
 
-// Quando a música termina
+// QUANDO MÚSICA TERMINA
 musica.addEventListener("ended", () => {
-    // Mostrar o balão de texto
+    // Mostra o texto
     dialogoEl.style.display = "flex"; 
     textoEl.innerHTML = "Clique para ler a mensagem...";
-
-    // Mudar música para fundo ambiente em loop
-    musica.volume = 0.15; 
+    // Começa loop ambiente
+    musica.volume = 0.15;
     musica.loop = true;
     musica.play();
-    playBtn.style.display = "none"; // Esconde botão Play
-    document.querySelector('.trilha-texto').innerText = "Tocando ao fundo...";
+    playBtn.style.display = "none"; // esconde botão play
+    statusTrilha.innerText = "Tocando ao fundo...";
 });
 </script>
 
