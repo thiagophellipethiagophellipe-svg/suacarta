@@ -178,6 +178,17 @@ function resposta3(){
 
 }
 
+    
+// Música termina → texto aparece + música ambiente
+musica.addEventListener("ended", () => {
+    dialogoEl.style.display = "flex"; 
+    textoEl.innerHTML = "A música acabou... clique aqui para ler.";
+    musica.volume = 0.15; 
+    musica.loop = true;
+    musica.play();
+    playBtn.style.display = "none";
+    statusTxt.innerText = "Música em modo ambiente..."; 
+
 </script>
 
 </body>
