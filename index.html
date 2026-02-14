@@ -3,179 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mensagem Especial</title>
+<title>Carta Especial</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-/* ===== FUNDO ===== */
 body{
-min-height:100dvh;
-background:
-linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)),
-url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e");
-background-size:cover;
-background-position:center;
-background-repeat:no-repeat;
-
-font-family:'Press Start 2P', monospace;
-display:flex;
-flex-direction:column;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    background: linear-gradient(135deg,#f7d9e3,#f5e6cc);
+    font-family: Georgia, serif;
 }
 
-/* ===== CORAÇÕES ===== */
-.coracoes{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:1;
+/* Polaroid */
+.polaroid{
+    background:white;
+    padding:20px 20px 60px;
+    width:100%;
+    max-width:350px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.25);
+    transform: rotate(-2deg);
+    border-radius:6px;
 }
 
-.heart{
-position:absolute;
-bottom:-60px;
-font-size:20px;
-animation:subir linear infinite;
+/* Conteúdo */
+.carta{
+    text-align:center;
+    color:#5a3b3b;
 }
 
-@keyframes subir{
-0%{transform:translateY(0);opacity:0;}
-20%{opacity:1;}
-100%{transform:translateY(-120vh);opacity:0;}
+/* Título */
+.carta h1{
+    font-size:24px;
+    margin-bottom:15px;
 }
 
-/* ===== TELA ===== */
-.tela{
-width:100%;
-max-width:600px;
-margin:auto;
-flex:1;
-
-display:flex;
-flex-direction:column;
-justify-content:space-between;
-z-index:2;
+/* Texto */
+.carta p{
+    font-size:16px;
+    line-height:1.6;
 }
 
-/* ===== PERSONAGEM ===== */
-.personagem{
-flex:1;
-display:flex;
-justify-content:center;
-align-items:center;
-padding-top:20px;
+/* Botão */
+.botao{
+    display:inline-block;
+    margin-top:20px;
+    padding:14px 25px;
+    background:#c97b8b;
+    color:white;
+    text-decoration:none;
+    border-radius:30px;
+    font-size:16px;
 }
 
-.prof-img{
-width:140px; /* DIMINUI BEM */
-}
-
-/* ===== DIALOGO ===== */
-.dialogo{
-width:95%;
-margin:0 auto 10px auto;
-
-background:#f8f8f8;
-border-top:6px solid #3a6ea5;
-border-left:6px solid #3a6ea5;
-border-right:6px solid #3a6ea5;
-border-radius:18px 18px 0 0;
-
-padding:16px;
-position:relative;
-box-shadow:0 -6px 20px rgba(0,0,0,.15);
-cursor:pointer;
-}
-
-.texto{
-font-size:10px;
-line-height:1.6;
-color:#333;
-}
-
-.seta{
-position:absolute;
-right:14px;
-bottom:6px;
-font-size:14px;
-animation:piscando 1s infinite;
-}
-
-@keyframes piscando{
-0%{opacity:0}
-50%{opacity:1}
-100%{opacity:0}
-}
-
-/* ===== TELAS MAIORES ===== */
-@media(min-width:768px){
-
-.prof-img{
-width:200px;
-}
-
-.dialogo{
-width:100%;
-}
-
+/* Mobile extra */
+@media (max-width:400px){
+    .botao{
+        width:100%;
+    }
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- CORAÇÕES -->
-<div class="coracoes">
-<div class="heart" style="left:10%;animation-duration:7s">💖</div>
-<div class="heart" style="left:30%;animation-duration:6s">💗</div>
-<div class="heart" style="left:50%;animation-duration:8s">💓</div>
-<div class="heart" style="left:70%;animation-duration:7s">💕</div>
-<div class="heart" style="left:90%;animation-duration:6s">💘</div>
+<div class="polaroid">
+    <div class="carta">
+        
+
+        <p>
+        ✨ Uma pequena surpresa para
+        <br><br>
+<h1>Você 💌❤️</h1>
+        ❤️ Abra… é especial.📩
+        </p>
+
+        <a class="botao" href="https://google.com" target="_blank">
+            Clique aqui 💌
+        </a>
+    </div>
 </div>
-
-<!-- TELA -->
-<div class="tela">
-
-<div class="personagem">
-<img src="img/pf.png" alt="Professor Carvalho" class="prof-img">
-</div>
-
-<div class="dialogo" onclick="proximoTexto()">
-<div class="texto" id="texto">
-Olá...
-</div>
-<div class="seta">▼</div>
-</div>
-
-</div>
-
-<script>
-const textos = [
-`Olá...`,
-`Talvez essa seja apenas o começo de uma nova jornada.`,
-`Prepare-se para descobrir algo especial.`,
-`Nem tudo é coincidência... algumas coisas são destino.`
-];
-
-let indice = 0;
-
-function proximoTexto(){
-indice++;
-if(indice >= textos.length){
-indice = textos.length - 1;
-}
-document.getElementById("texto").innerHTML = textos[indice];
-}
-</script>
 
 </body>
 </html>
