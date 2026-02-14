@@ -62,6 +62,7 @@ transition:.3s;
 
 .b1{background:linear-gradient(45deg,#ff9a9e,#fad0c4);color:white}
 .b3{background:transparent;border:2px solid #f3a6a6;color:#d27b7b}
+.b-instagram{background:#C13584;color:white;font-weight:600;}
 
 button:active{transform:scale(.97)}
 
@@ -103,17 +104,21 @@ min-height:24px;
 
 <div class="card">
 <h1>Gostou do presente? 😍</h1>
-<p>Talvez isso seja só o começo de uma pequena descoberta...</p>
-
 <button class="b1" onclick="resposta1()">Sim, gostei ❤️</button>
 
 <div class="link-text" onclick="resposta2()">
-Quero saber quem sou? 👇🏾
+Sabe quem sou? 🤔
 </div>
 
-<button class="b3" onclick="resposta3()">Quero mais pistas</button>
+<button class="b3" onclick="resposta3()">Vou precisar de mais que uma dica...</button>
 
 <div class="msg" id="msg"></div>
+
+<!-- Botão Instagram, escondido até a última dica -->
+<button id="instagramBtn" class="b-instagram" style="display:none;" 
+onclick="window.open('https://www.instagram.com/thphellipe?igsh=NTQ2YnViMHl0MjBq', '_blank')">
+Descubra no Instagram 📸
+</button>
 </div>
 
 <!-- Corações -->
@@ -128,57 +133,48 @@ Quero saber quem sou? 👇🏾
 let nivel = 0;
 
 function resposta1(){
-document.getElementById("msg").innerText =
-"Fico feliz que tenha gostado... isso já diz muito sobre você 💖";
+    document.getElementById("msg").innerText =
+    "Fico feliz que tenha gostado... Espero ter tirado um lindo sorriso seu! 💖";
 }
 
 function resposta2(){
-if(nivel === 0){
-document.getElementById("msg").innerText =
-"Talvez alguém que já cruzou seu caminho... 😉";
-nivel = 1;
-}else{
-document.getElementById("msg").innerText =
-"Alguém que te observou em silêncio por um tempo...";
-}
+    if(nivel === 0){
+        document.getElementById("msg").innerText =
+        "Talvez alguém que já cruzou seu caminho... 😉";
+        nivel = 1;
+    }else{
+        document.getElementById("msg").innerText =
+        "Alguém que te observou em silêncio por um tempo...";
+    }
 }
 
 function resposta3(){
 
-if(nivel === 0){
-document.getElementById("msg").innerText =
-"Pista 1: Nós já trabalhamos no mesmo lugar. o - i*o";
-nivel = 1;
-}
+    const dicas = [
+        "Nós já trabalhamos no mesmo lugar. *o* - *i***s;",
+        "Mas eu te conheço desde o ensino médio.",
+        "Só que você não sabia que nós morávamos no mesmo bairro.",
+        "Nós nos encontramos na mecânica de moto.",
+        "Te vejo quase todo sábado pela manhã, de moto ou de carro.",
+        "Quando dava a hora de ir embora eu apostava corrida com você de moto toda vez, e adivinha o placar kkk foi 3x2 pra você. Perdi todas as vezes no mesmo local... Abaeté.",
+        "Já notei seu sorriso sem que você percebesse.",
+        "A primeira coisa que me chamou atenção em você foi seu cabelo,",
+        "Seu jeito de rir é fácil de reconhecer, mesmo à distância.",
+        "Você tem um jeito que inspira quem está ao redor, mesmo que não perceba.",
+        "Notei que você valoriza pequenas coisas, mesmo que ninguém perceba.",
+        "Mesmo em silêncio, dá para perceber que você gosta de observar e refletir antes de agir.",
+        "Curioso(a) para descobrir quem está por trás dessas pistas? 😏 Clique aqui e desvende o mistério!"
+    ];
 
-else if(nivel === 1){
-document.getElementById("msg").innerText =
-"Pista 2: Mas eu te conheço desde o ensino médio.";
-nivel = 2;
-}
+    if(nivel < dicas.length){
+        document.getElementById("msg").innerText = dicas[nivel];
+        nivel++;
 
-else if(nivel === 2){
-document.getElementById("msg").innerText =
-"Pista 3: Só que você não sabia que nós  morávamos no mesmo bairro.";
-nivel = 3;
-}
-
-else if(nivel === 3){
-document.getElementById("msg").innerText =
-"Pista 4: Nós nos encontramos na mecânica de moto.";
-nivel = 4;
-}
-
-else if(nivel === 4){
-document.getElementById("msg").innerText =
-"Pista 5: Te vejo quase todo sábado pela manhã, de moto ou de carro.";
-nivel = 5;
-}
-
-else{
-document.getElementById("msg").innerText =
-"Pista 6: Quando dava a hora de ir embora eu apostava corrida com você de moto toda vez, e adivinha o placar kkk foi 3x2 pra você. Perdi todas as vezes no mesmo local... Abaeté.";
-}
+        // Se for a última dica, mostra o botão do Instagram
+        if(nivel === dicas.length){
+            document.getElementById("instagramBtn").style.display = "block";
+        }
+    }
 
 }
 
