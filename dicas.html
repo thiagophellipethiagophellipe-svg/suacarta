@@ -6,7 +6,7 @@
 <title>Uma Pequena Descoberta</title>
 
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;}
 
 body{
 margin:0;
@@ -37,66 +37,17 @@ max-width:380px;
 z-index:2;
 }
 
-h1{
-color:#6b5b5b;
-font-size:clamp(20px,5vw,28px);
-margin-bottom:10px;
-}
-
-p{
-color:#7a6f6f;
-font-size:clamp(13px,3.5vw,15px);
-line-height:1.4;
-}
-
-button{
-width:100%;
-border:none;
-padding:14px;
-margin-top:12px;
-border-radius:14px;
-font-size:clamp(14px,3.5vw,16px);
-cursor:pointer;
-transition:.3s;
-}
-
-.b1{background:linear-gradient(45deg,#ff9a9e,#fad0c4);color:white}
-.b3{background:transparent;border:2px solid #f3a6a6;color:#d27b7b}
+h1{ color:#6b5b5b; font-size:clamp(20px,5vw,28px); margin-bottom:10px;}
+button{ width:100%; border:none; padding:14px; margin-top:12px; border-radius:14px; font-size:clamp(14px,3.5vw,16px); cursor:pointer; transition:.3s;}
+.b1{background:linear-gradient(45deg,#ff9a9e,#fad0c4);color:white;}
+.b3{background:transparent;border:2px solid #f3a6a6;color:#d27b7b;}
 .b-instagram{background:#C13584;color:white;font-weight:600;}
-
-button:active{transform:scale(.97)}
-
-.link-text{
-margin-top:12px;
-font-size:16px;
-font-weight:600;
-color:#a06cd5;
-cursor:pointer;
-}
-
-.link-text:active{
-transform:scale(.97);
-}
-
-.heart{
-position:absolute;
-font-size:clamp(18px,5vw,26px);
-animation:subir linear infinite;
-}
-
-@keyframes subir{
-0%{transform:translateY(110vh);opacity:0}
-20%{opacity:1}
-100%{transform:translateY(-10vh);opacity:0}
-}
-
-.msg{
-margin-top:15px;
-font-size:14px;
-color:#6b5b5b;
-font-weight:500;
-min-height:24px;
-}
+button:active{transform:scale(.97);}
+.link-text{margin-top:12px;font-size:16px;font-weight:600;color:#a06cd5;cursor:pointer;}
+.link-text:active{transform:scale(.97);}
+.heart{position:absolute;font-size:clamp(18px,5vw,26px);animation:subir linear infinite;}
+@keyframes subir{0%{transform:translateY(110vh);opacity:0}20%{opacity:1}100%{transform:translateY(-10vh);opacity:0}}
+.msg{margin-top:15px;font-size:14px;color:#6b5b5b;font-weight:500;min-height:24px;}
 </style>
 </head>
 
@@ -106,15 +57,12 @@ min-height:24px;
 <h1>Gostou do presente? 😍</h1>
 <button class="b1" onclick="resposta1()">Sim, gostei ❤️</button>
 
-<div class="link-text" onclick="resposta2()">
-Sabe quem sou? 🤔
-</div>
+<div class="link-text" onclick="resposta2()">Sabe quem sou? 🤔</div>
 
 <button class="b3" onclick="resposta3()">Vou precisar de mais que uma dica...</button>
 
 <div class="msg" id="msg"></div>
 
-<!-- Botão Instagram, escondido até a última dica -->
 <button id="instagramBtn" class="b-instagram" style="display:none;" 
 onclick="window.open('https://www.instagram.com/thphellipe?igsh=NTQ2YnViMHl0MjBq', '_blank')">
 Descubra no Instagram 📸
@@ -128,9 +76,18 @@ Descubra no Instagram 📸
 <div class="heart" style="left:60%;animation-duration:7s;animation-delay:1s">💕</div>
 <div class="heart" style="left:80%;animation-duration:6s;animation-delay:3s">💘</div>
 
-<script>
+<!-- Música ambiente -->
+<audio id="musica" autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
+  Seu navegador não suporta áudio.
+</audio>
 
+<script>
 let nivel = 0;
+const musica = document.getElementById("musica");
+
+// Volume baixo ambiente
+musica.volume = 0.15;
 
 function resposta1(){
     document.getElementById("msg").innerText =
@@ -149,7 +106,6 @@ function resposta2(){
 }
 
 function resposta3(){
-
     const dicas = [
         "Nós já trabalhamos no mesmo lugar. *o* - *i***s;",
         "Mas eu te conheço desde o ensino médio.",
@@ -170,25 +126,11 @@ function resposta3(){
         document.getElementById("msg").innerText = dicas[nivel];
         nivel++;
 
-        // Se for a última dica, mostra o botão do Instagram
         if(nivel === dicas.length){
             document.getElementById("instagramBtn").style.display = "block";
         }
     }
-
 }
-
-    
-// Música termina → texto aparece + música ambiente
-musica.addEventListener("ended", () => {
-    dialogoEl.style.display = "flex"; 
-    textoEl.innerHTML = "A música acabou... clique aqui para ler.";
-    musica.volume = 0.15; 
-    musica.loop = true;
-    musica.play();
-    playBtn.style.display = "none";
-    statusTxt.innerText = "Música em modo ambiente..."; 
-
 </script>
 
 </body>
