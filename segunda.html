@@ -13,7 +13,6 @@
 /* ===== FUNDO E CENTRALIZAÇÃO ===== */
 body{
 min-height:100vh;
-/* Garante centralização total em qualquer tela */
 height: 100dvh; 
 background:
 linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)),
@@ -77,12 +76,6 @@ align-items:center;
 gap:12px;
 }
 
-.trilha-texto{
-font-size:12px;
-color:#ffe4ec;
-text-shadow:0 0 6px rgba(255,180,200,.6);
-letter-spacing:2px;
-}
 
 /* BOTÃO ROSA MINIMALISTA */
 .play-btn, #dicasBtn{
@@ -96,6 +89,7 @@ border-radius:999px;
 cursor:pointer;
 box-shadow:0 4px 18px rgba(255,150,170,.5);
 transition:.25s;
+background-color: rgba(240,240,240,0.2); /* Pequeno destaque cinza atrás */
 }
 
 .play-btn:hover, #dicasBtn:hover{
@@ -115,7 +109,7 @@ padding:18px;
 box-shadow:0 4px 20px rgba(0,0,0,.15);
 cursor:pointer;
 text-align:center;
-display:none; /* Escondido até a música acabar */
+display:none; 
 align-items:center;            
 justify-content:center;  
 transition:height 0.3s ease;
@@ -174,7 +168,6 @@ margin-top:10px;
 
 <div class="tela">
   <div class="personagem">
-    <div class="trilha-texto" id="statusTxt">Ouça...</div>
     <button class="play-btn" id="playBtn">▶ PLAY</button>
     <audio id="musica">
       <source src="musica.mp3" type="audio/mpeg">
@@ -247,18 +240,13 @@ function tocarMusica(){
 
 playBtn.addEventListener("click", tocarMusica);
 
-// AQUI ESTÁ A LÓGICA QUE VOCÊ PEDIU:
+// Música termina → texto aparece + música ambiente
 musica.addEventListener("ended", () => {
-    // 1. Mostra o diálogo
     dialogoEl.style.display = "flex"; 
     textoEl.innerHTML = "A música acabou... clique aqui para ler.";
-
-    // 2. Toca em loop com som ambiente (baixo)
     musica.volume = 0.15; 
     musica.loop = true;
     musica.play();
-
-    // 3. Esconde o botão Play e muda o texto de status
     playBtn.style.display = "none";
     statusTxt.innerText = "Música em modo ambiente...";
 });
