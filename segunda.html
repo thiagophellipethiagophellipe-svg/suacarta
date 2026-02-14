@@ -10,9 +10,11 @@
 
 *{margin:0; padding:0; box-sizing:border-box;}
 
-/* ===== FUNDO ===== */
+/* ===== FUNDO E CENTRALIZAÇÃO ===== */
 body{
 min-height:100vh;
+/* Garante centralização total em qualquer tela */
+height: 100dvh; 
 background:
 linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)),
 url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e");
@@ -63,6 +65,7 @@ justify-content:center;
 align-items:center;
 gap:20px;
 z-index:2;
+text-align: center;
 }
 
 /* ===== PLAYER ROMÂNTICO ===== */
@@ -103,21 +106,20 @@ box-shadow:0 6px 22px rgba(255,150,170,.8);
 /* ===== DIALOGO ===== */
 .dialogo{
 position:relative; 
-width:90%;
+width:100%;
 max-width:520px;
 background:#f8f8f8;
 border:6px solid #3a6ea5;
 border-radius:22px;
-padding:12px 18px;
+padding:18px;
 box-shadow:0 4px 20px rgba(0,0,0,.15);
 cursor:pointer;
 text-align:center;
-display:flex;            
-align-items:center;      
+display:none; /* Escondido até a música acabar */
+align-items:center;            
 justify-content:center;  
 transition:height 0.3s ease;
-min-height:50px;         
-display:none; 
+min-height:80px;          
 }
 
 /* Texto dentro do box */
@@ -128,13 +130,18 @@ color:#333;
 display:inline-block;
 }
 
-/* Seta piscando fixa no canto inferior direito */
+/* Seta piscando */
 .seta{
 position:absolute;
 bottom:8px;
 right:12px;
 font-size:16px;
 animation:piscando 1s infinite;
+}
+
+@keyframes piscando {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* Botão de dicas inicialmente escondido */
@@ -146,7 +153,7 @@ margin-top:10px;
 /* ===== MOBILE ===== */
 @media(max-width:480px){
 .trilha-texto{font-size:10px;}
-.play-btn, #dicasBtn{font-size:10px; padding:12px 20px;}
+.play-btn, #dicasBtn{font-size:10px; padding:12px 20px; width: 80%;}
 .texto{font-size:10px;}
 .seta{font-size:14px;}
 }
@@ -155,7 +162,6 @@ margin-top:10px;
 
 <body>
 
-<!-- CORAÇÕES -->
 <div class="coracoes">
 <div class="heart" style="left:8%; animation-duration:7s;">💖</div>
 <div class="heart" style="left:20%; animation-duration:6s; animation-delay:1s;">💗</div>
@@ -166,33 +172,24 @@ margin-top:10px;
 <div class="heart" style="left:88%; animation-duration:7s; animation-delay:1s;">❤️</div>
 </div>
 
-<!-- TELA -->
 <div class="tela">
+  <div class="personagem">
+    <div class="trilha-texto" id="statusTxt">Ouça...</div>
+    <button class="play-btn" id="playBtn">▶ PLAY</button>
+    <audio id="musica">
+      <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+  </div>
 
-<div class="personagem">
+  <div class="dialogo" id="dialogo">
+    <div class="texto" id="texto"></div>
+    <div class="seta">▼</div>
+  </div>
 
-<div class="trilha-texto">Ouça!</div>
-
-<button class="play-btn" id="playBtn">▶ PLAY</button>
-
-<audio id="musica">
-  <source src="mp3/musica.mp3" type="audio/mpeg">
-</audio>
-
-</div>
-
-<div class="dialogo" id="dialogo">
-<div class="texto" id="texto"></div>
-<div class="seta">▼</div>
-</div>
-
-<!-- Botão para página de dicas -->
-<button id="dicasBtn" onclick="window.location.href='https://thiagophellipe.github.io/cartinha/dicas.html'">Ir para as dicas</button>
-
+  <button id="dicasBtn" onclick="window.location.href='segunda.html'">Ir para as dicas</button>
 </div>
 
 <script>
-// Texto atualizado
 const linhas = [
 "Ainda sei bem pouco sobre você…",
 "Mas o pouco que sei me deixou curioso e encantado.",
@@ -200,7 +197,7 @@ const linhas = [
 "Pequenos gestos, sorrisos e jeitos que fazem tudo parecer mágico.",
 "Você não precisa de grandes gestos; são as pequenas atitudes que provocam seu sorriso sincero.",
 "É incrível como sua presença transforma o ambiente.",
-"Quer descobrir quem te enviou essas flores?" // linha teaser antes do botão
+"Quer descobrir quem te enviou essas flores?" 
 ];
 
 let indexLinha = 0;
@@ -211,8 +208,8 @@ const dialogoEl = document.getElementById("dialogo");
 const musica = document.getElementById("musica");
 const playBtn = document.getElementById("playBtn");
 const dicasBtn = document.getElementById("dicasBtn");
+const statusTxt = document.getElementById("statusTxt");
 
-// Função de digitação letra por letra
 function digitarLinha(linha) {
     digitando = true;
     textoEl.innerHTML = ""; 
@@ -223,7 +220,6 @@ function digitarLinha(linha) {
         if (i >= linha.length) {
             clearInterval(intervalo);
             digitando = false;
-            // Se for a última linha (teaser), mostrar o botão
             if(indexLinha >= linhas.length){
                 dicasBtn.style.display = "inline-block";
             }
@@ -231,7 +227,6 @@ function digitarLinha(linha) {
     }, 50);
 }
 
-// Clique para próxima linha
 dialogoEl.addEventListener("click", () => {
     if (digitando) return;
     if (indexLinha < linhas.length) {
@@ -240,7 +235,6 @@ dialogoEl.addEventListener("click", () => {
     }
 });
 
-// PLAY / PAUSE da música
 function tocarMusica(){
   if(musica.paused){
     musica.play();
@@ -253,15 +247,20 @@ function tocarMusica(){
 
 playBtn.addEventListener("click", tocarMusica);
 
-// Evento quando a música termina
+// AQUI ESTÁ A LÓGICA QUE VOCÊ PEDIU:
 musica.addEventListener("ended", () => {
-    dialogoEl.style.display = "flex"; // mostra o box
-    textoEl.innerHTML = "Clique para começar...";
+    // 1. Mostra o diálogo
+    dialogoEl.style.display = "flex"; 
+    textoEl.innerHTML = "A música acabou... clique aqui para ler.";
 
-    // Música continua baixinho em loop como fundo ambiente
-    musica.volume = 0.1; // volume baixo
+    // 2. Toca em loop com som ambiente (baixo)
+    musica.volume = 0.15; 
     musica.loop = true;
     musica.play();
+
+    // 3. Esconde o botão Play e muda o texto de status
+    playBtn.style.display = "none";
+    statusTxt.innerText = "Música em modo ambiente...";
 });
 </script>
 
