@@ -111,7 +111,6 @@ Sabe quem sou? 🤔
 
 <div class="msg" id="msg"></div>
 
-<!-- Botão das dicas das flores -->
 <button id="floresBtn" class="b-flores" style="display:none;"
 onclick="window.location.href='cuidados.html'">
 Como cuidar das suas flores 🌸
@@ -126,52 +125,70 @@ Como cuidar das suas flores 🌸
 <div class="heart" style="left:60%;animation-duration:7s;animation-delay:1s">💕</div>
 <div class="heart" style="left:80%;animation-duration:6s;animation-delay:3s">💘</div>
 
+<!-- Música ambiente -->
+<audio id="musica" loop>
+<source src="musica.mp3" type="audio/mpeg">
+</audio>
+
 <script>
 
 let nivel = 0;
 
+/* função que inicia a música */
+function tocarMusica(){
+const musica = document.getElementById("musica");
+musica.volume = 0.3;
+musica.play();
+}
+
+/* tocar música no primeiro clique da página */
+document.body.addEventListener("click", function(){
+tocarMusica();
+},{once:true});
+
+
 function resposta1(){
-    document.getElementById("msg").innerText =
-    "Fico feliz que tenha gostado... Espero ter tirado um lindo sorriso seu! 💖";
+document.getElementById("msg").innerText =
+"Fico feliz que tenha gostado... Espero ter tirado um lindo sorriso seu! 💖";
 }
 
 function resposta2(){
-    if(nivel === 0){
-        document.getElementById("msg").innerText =
-        "Talvez alguém que já cruzou seu caminho... 😉";
-        nivel = 1;
-    }else{
-        document.getElementById("msg").innerText =
-        "Alguém que te observou em silêncio por um tempo...";
-    }
+if(nivel === 0){
+document.getElementById("msg").innerText =
+"Talvez alguém que já cruzou seu caminho... 😉";
+nivel = 1;
+}else{
+document.getElementById("msg").innerText =
+"Alguém que te observou em silêncio por um tempo...";
+}
 }
 
 function resposta3(){
 
-    const dicas = [
-        "Nós já trabalhamos no mesmo lugar. *o* - *i***s;",
-        "Mas eu te conheço desde o ensino médio.",
-        "Só que você não sabia que nós morávamos no mesmo bairro.",
-        "Nós nos encontramos na mecânica de moto.",
-        "Te vejo quase todo sábado pela manhã, de moto ou de carro.",
-        "Quando dava a hora de ir embora eu apostava corrida com você de moto toda vez, e adivinha o placar kkk foi 3x2 pra você. Perdi todas as vezes no mesmo local... Abaeté.",
-        "Já notei seu sorriso sem que você percebesse.",
-        "A primeira coisa que me chamou atenção em você foi seu cabelo,",
-        "Seu jeito de rir é fácil de reconhecer, mesmo à distância.",
-        "Você tem um jeito que inspira quem está ao redor, mesmo que não perceba.",
-        "Notei que você valoriza pequenas coisas, mesmo que ninguém perceba.",
-        "Mesmo em silêncio, dá para perceber que você gosta de observar e refletir antes de agir.",
-        "Curioso(a) para descobrir quem está por trás dessas pistas? 😏 Mas antes, dê uma olhada em"
-    ];
+const dicas = [
+"Nós já trabalhamos no mesmo lugar. *o* - *i***s;",
+"Mas eu te conheço desde o ensino médio.",
+"Só que você não sabia que nós morávamos no mesmo bairro.",
+"Nós nos encontramos na mecânica de moto.",
+"Te vejo quase todo sábado pela manhã, de moto ou de carro.",
+"Quando dava a hora de ir embora eu apostava corrida com você de moto toda vez, e adivinha o placar kkk foi 3x2 pra você. Perdi todas as vezes no mesmo local... Abaeté.",
+"Já notei seu sorriso sem que você percebesse.",
+"A primeira coisa que me chamou atenção em você foi seu cabelo,",
+"Seu jeito de rir é fácil de reconhecer, mesmo à distância.",
+"Você tem um jeito que inspira quem está ao redor, mesmo que não perceba.",
+"Notei que você valoriza pequenas coisas, mesmo que ninguém perceba.",
+"Mesmo em silêncio, dá para perceber que você gosta de observar e refletir antes de agir.",
+"Curioso(a) para descobrir quem está por trás dessas pistas? 😏 Mas antes, dê uma olhada em"
+];
 
-    if(nivel < dicas.length){
-        document.getElementById("msg").innerText = dicas[nivel];
-        nivel++;
+if(nivel < dicas.length){
+document.getElementById("msg").innerText = dicas[nivel];
+nivel++;
 
-        if(nivel === dicas.length){
-            document.getElementById("floresBtn").style.display = "block";
-        }
-    }
+if(nivel === dicas.length){
+document.getElementById("floresBtn").style.display = "block";
+}
+}
 
 }
 
