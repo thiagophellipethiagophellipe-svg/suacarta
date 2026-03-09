@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dicas para cuidar das flores</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:100vh;
+background:
+linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)),
+url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Segoe UI,Arial;
+overflow:hidden;
+padding:20px;
+}
+
+.card{
+background:rgba(255,255,255,.9);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:22px;
+text-align:center;
+box-shadow:0 10px 35px rgba(0,0,0,.1);
+width:100%;
+max-width:380px;
+z-index:2;
+}
+
+h1{
+color:#6b5b5b;
+font-size:24px;
+margin-bottom:10px;
+}
+
+p{
+color:#7a6f6f;
+font-size:15px;
+line-height:1.4;
+}
+
+button{
+width:100%;
+border:none;
+padding:14px;
+margin-top:15px;
+border-radius:14px;
+font-size:15px;
+cursor:pointer;
+transition:.3s;
+background:linear-gradient(45deg,#ff9a9e,#fad0c4);
+color:white;
+}
+
+button:active{
+transform:scale(.96);
+}
+
+#instagramBtn{
+display:none;
+background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
+}
+
+.heart{
+position:absolute;
+font-size:24px;
+animation:subir linear infinite;
+}
+
+@keyframes subir{
+0%{transform:translateY(110vh);opacity:0}
+20%{opacity:1}
+100%{transform:translateY(-10vh);opacity:0}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h1 id="titulo">Como cuidar das suas flores 🌸</h1>
+
+<p id="texto">
+Algumas dicas simples para fazer seu buquê durar muito mais tempo.
+</p>
+
+<button id="botao" onclick="proximaDica()">Vamos começar</button>
+
+<button id="instagramBtn" onclick="abrirInstagram()">
+Ver quem enviou as flores 🌷
+</button>
+
+</div>
+
+<div class="heart" style="left:10%;animation-duration:7s">💖</div>
+<div class="heart" style="left:25%;animation-duration:6s;animation-delay:2s">💗</div>
+<div class="heart" style="left:40%;animation-duration:8s;animation-delay:4s">💓</div>
+<div class="heart" style="left:60%;animation-duration:7s;animation-delay:1s">💕</div>
+<div class="heart" style="left:80%;animation-duration:6s;animation-delay:3s">💘</div>
+
+<!-- Música ambiente -->
+<audio id="musica" autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
+  Seu navegador não suporta áudio.
+</audio>
+
+<script>
+
+const musica = document.getElementById("musica");
+musica.volume = 0.15; // volume baixo ambiente
+
+let passo = -1;
+
+const dicas = [
+
+{
+titulo:"Corte os caules corretamente ✂️",
+texto:"Corte o caule das flores na diagonal. Isso ajuda elas a absorver melhor a água."
+},
+
+{
+titulo:"Refaça o corte com o tempo 🌿",
+texto:"Repita o corte a cada 2 ou 3 dias para manter as flores saudáveis."
+},
+
+{
+titulo:"Use água bem gelada ❄️",
+texto:"Coloque água bem gelada no vaso. Isso ajuda a desacelerar o envelhecimento das flores."
+},
+
+{
+titulo:"Adicione gelo de vez em quando 🧊",
+texto:"Você pode colocar pedrinhas de gelo na água para manter a temperatura baixa."
+},
+
+{
+titulo:"Troque a água com frequência 💧",
+texto:"Troque a água todos os dias se possível. No máximo a cada 2 ou 3 dias."
+},
+
+{
+titulo:"Evite bactérias no vaso 🧼",
+texto:"Trocar a água evita bactérias que fazem as flores morrerem mais rápido."
+},
+
+{
+titulo:"Remova flores murchas 🌺",
+texto:"Sempre retire flores que estiverem murchas, pois elas liberam substâncias que prejudicam as outras."
+},
+
+{
+titulo:"Retire os estames 🌼",
+texto:"Se a flor tiver estames (fiozinhos com pólen, como no lírio), corte-os para aumentar a durabilidade."
+}
+
+];
+
+function proximaDica(){
+
+passo++;
+
+if(passo < dicas.length){
+
+document.getElementById("titulo").innerText = dicas[passo].titulo;
+
+document.getElementById("texto").innerText = dicas[passo].texto;
+
+document.getElementById("botao").innerText = "Próxima dica";
+
+}else{
+
+document.getElementById("titulo").innerText = "Agora vem a parte curiosa 🌹";
+
+document.getElementById("texto").innerText =
+"Depois de aprender a cuidar das flores, que tal descobrir quem foi a pessoa que enviou elas?";
+
+document.getElementById("botao").style.display = "none";
+
+document.getElementById("instagramBtn").style.display = "block";
+
+}
+
+}
+
+function abrirInstagram(){
+
+window.location.href = "https://www.instagram.com/thphellipe?igsh=NTQ2YnViMHl0MjBq";
+
+}
+
+</script>
+
+</body>
+</html>
