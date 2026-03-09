@@ -112,7 +112,7 @@ Sabe quem sou? 🤔
 <div class="msg" id="msg"></div>
 
 <button id="floresBtn" class="b-flores" style="display:none;"
-onclick="window.location.href='cuidados.html'">
+onclick="window.location.href='dicasflores.html'">
 Como cuidar das suas flores 🌸
 </button>
 
@@ -133,26 +133,30 @@ Como cuidar das suas flores 🌸
 <script>
 
 let nivel = 0;
+let musicaIniciada = false;
 
-/* função que inicia a música */
-function tocarMusica(){
+function iniciarMusica(){
+if(!musicaIniciada){
 const musica = document.getElementById("musica");
 musica.volume = 0.3;
 musica.play();
+musicaIniciada = true;
+}
 }
 
-/* tocar música no primeiro clique da página */
-document.body.addEventListener("click", function(){
-tocarMusica();
-},{once:true});
-
+document.addEventListener("click", iniciarMusica);
 
 function resposta1(){
+iniciarMusica();
+
 document.getElementById("msg").innerText =
 "Fico feliz que tenha gostado... Espero ter tirado um lindo sorriso seu! 💖";
 }
 
 function resposta2(){
+
+iniciarMusica();
+
 if(nivel === 0){
 document.getElementById("msg").innerText =
 "Talvez alguém que já cruzou seu caminho... 😉";
@@ -164,6 +168,8 @@ document.getElementById("msg").innerText =
 }
 
 function resposta3(){
+
+iniciarMusica();
 
 const dicas = [
 "Nós já trabalhamos no mesmo lugar. *o* - *i***s;",
